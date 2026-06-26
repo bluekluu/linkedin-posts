@@ -15,6 +15,13 @@
       margin: -4px;
     }
     .card-posted { opacity: 0.6; }
+    .card-body {
+      overflow: hidden;
+      max-height: 3000px;
+      transition: max-height 0.3s ease;
+    }
+    .card-collapsed .card-body { max-height: 0; }
+    .card-collapsed .chevron { transform: rotate(-90deg); }
   </style>
 </head>
 <body class="bg-slate-50 min-h-screen font-sans">
@@ -41,12 +48,16 @@
 
       <!-- Tuesday -->
       <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden transition-opacity duration-200" data-post-date="2026-06-24">
-        <div class="px-6 py-3.5 border-b border-gray-100 flex items-center gap-2">
+        <div class="px-6 py-3.5 border-b border-gray-100 flex items-center gap-2 cursor-pointer select-none hover:bg-gray-50 transition-colors" onclick="toggleCollapse(this.closest('[data-post-date]'))">
           <span class="day-label px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">Tuesday &middot; Jun 24</span>
           <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">AI Regulation</span>
+          <svg class="chevron w-4 h-4 text-gray-300 ml-auto shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06z" clip-rule="evenodd"/>
+          </svg>
         </div>
-        <div class="px-6 pt-5 pb-4">
-          <div class="post-body text-sm text-gray-800 leading-relaxed font-sans" contenteditable="true" spellcheck="true" oninput="updateCharCount(this)">You have 40 days. Most AI teams I've talked to don't know what that means.
+        <div class="card-body">
+          <div class="px-6 pt-5 pb-4">
+            <div class="post-body text-sm text-gray-800 leading-relaxed font-sans" contenteditable="true" spellcheck="true" oninput="updateCharCount(this)">You have 40 days. Most AI teams I've talked to don't know what that means.
 
 August 2 is when the EU AI Act becomes fully applicable for GPAI models — the transparency, disclosure, and AI-generated content marking obligations under Article 50. Non-compliance penalties: up to 7% of global annual revenue.
 
@@ -66,19 +77,20 @@ If you're a startup building AI products for EU users and you're still figuring 
 Happy to dig into compliance-readiness architecture with anyone in the thick of this.
 
 #AIRegulation #EUAIAct #AIGovernance #ResponsibleAI #TrustAndSafety</div>
-        </div>
-        <div class="px-6 pb-5 space-y-4">
-          <div class="grid grid-cols-[72px_1fr] gap-x-3 gap-y-1.5 pt-1">
-            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Why now</span>
-            <span class="text-xs text-gray-400 leading-relaxed">The EU AI Act becomes fully applicable August 2, 2026 — 40 days away — with Article 50 transparency obligations for GPAI models. Non-compliance: up to 7% of global annual revenue.</span>
-            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Credential</span>
-            <span class="text-xs text-gray-400 leading-relaxed">Led CEO-priority compliance overhaul across 60 Google products and 20+ teams spanning DMA, GDPR, and global regulatory regimes; built Instagram's end-to-end privacy compliance program.</span>
           </div>
-          <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span class="char-count text-xs text-gray-400 tabular-nums"></span>
-            <div class="flex items-center gap-2">
-              <button class="posted-btn text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-all font-medium" onclick="togglePosted(this)">Mark as posted</button>
-              <button class="copy-btn text-xs px-3 py-1.5 rounded-lg font-medium transition-all active:scale-95" onclick="handleCopyClick(this)">Copy</button>
+          <div class="px-6 pb-5 space-y-4">
+            <div class="grid grid-cols-[72px_1fr] gap-x-3 gap-y-1.5 pt-1">
+              <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Why now</span>
+              <span class="text-xs text-gray-400 leading-relaxed">The EU AI Act becomes fully applicable August 2, 2026 — 40 days away — with Article 50 transparency obligations for GPAI models. Non-compliance: up to 7% of global annual revenue.</span>
+              <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Credential</span>
+              <span class="text-xs text-gray-400 leading-relaxed">Led CEO-priority compliance overhaul across 60 Google products and 20+ teams spanning DMA, GDPR, and global regulatory regimes; built Instagram's end-to-end privacy compliance program.</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+              <span class="char-count text-xs text-gray-400 tabular-nums"></span>
+              <div class="flex items-center gap-2">
+                <button class="posted-btn text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-all font-medium" onclick="togglePosted(this)">Mark as posted</button>
+                <button class="copy-btn text-xs px-3 py-1.5 rounded-lg font-medium transition-all active:scale-95" onclick="handleCopyClick(this)">Copy</button>
+              </div>
             </div>
           </div>
         </div>
@@ -86,12 +98,16 @@ Happy to dig into compliance-readiness architecture with anyone in the thick of 
 
       <!-- Wednesday -->
       <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden transition-opacity duration-200" data-post-date="2026-06-25">
-        <div class="px-6 py-3.5 border-b border-gray-100 flex items-center gap-2">
+        <div class="px-6 py-3.5 border-b border-gray-100 flex items-center gap-2 cursor-pointer select-none hover:bg-gray-50 transition-colors" onclick="toggleCollapse(this.closest('[data-post-date]'))">
           <span class="day-label px-2.5 py-0.5 rounded-full text-xs font-bold bg-violet-100 text-violet-800">Wednesday &middot; Jun 25</span>
           <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Kids Safety</span>
+          <svg class="chevron w-4 h-4 text-gray-300 ml-auto shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06z" clip-rule="evenodd"/>
+          </svg>
         </div>
-        <div class="px-6 pt-5 pb-4">
-          <div class="post-body text-sm text-gray-800 leading-relaxed font-sans" contenteditable="true" spellcheck="true" oninput="updateCharCount(this)">"We don't target kids" is no longer a compliance defense.
+        <div class="card-body">
+          <div class="px-6 pt-5 pb-4">
+            <div class="post-body text-sm text-gray-800 leading-relaxed font-sans" contenteditable="true" spellcheck="true" oninput="updateCharCount(this)">"We don't target kids" is no longer a compliance defense.
 
 The Senate passed COPPA 2.0 unanimously in March. The new standard isn't whether you knew minors were on your platform — it's whether you should have known, based on objective circumstances.
 
@@ -108,19 +124,20 @@ This is the compliance work that takes 6–9 months to do properly. The clock is
 What questions are you wrestling with on kids safety compliance?
 
 #KidsSafety #COPPA #ChildrensPrivacy #DataPrivacy #TrustAndSafety</div>
-        </div>
-        <div class="px-6 pb-5 space-y-4">
-          <div class="grid grid-cols-[72px_1fr] gap-x-3 gap-y-1.5 pt-1">
-            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Why now</span>
-            <span class="text-xs text-gray-400 leading-relaxed">The U.S. Senate passed COPPA 2.0 unanimously in March 2026, extending children's privacy protections to teens under 17 and shifting the compliance standard from "actual knowledge" to "knowledge fairly implied by objective circumstances."</span>
-            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Credential</span>
-            <span class="text-xs text-gray-400 leading-relaxed">Drove Instagram end-to-end privacy compliance program including COPPA/AADC; led Google's youth protections compliance (COPPA, AADC) across CEO-priority overhaul spanning 60 products.</span>
           </div>
-          <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span class="char-count text-xs text-gray-400 tabular-nums"></span>
-            <div class="flex items-center gap-2">
-              <button class="posted-btn text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-all font-medium" onclick="togglePosted(this)">Mark as posted</button>
-              <button class="copy-btn text-xs px-3 py-1.5 rounded-lg font-medium transition-all active:scale-95" onclick="handleCopyClick(this)">Copy</button>
+          <div class="px-6 pb-5 space-y-4">
+            <div class="grid grid-cols-[72px_1fr] gap-x-3 gap-y-1.5 pt-1">
+              <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Why now</span>
+              <span class="text-xs text-gray-400 leading-relaxed">The U.S. Senate passed COPPA 2.0 unanimously in March 2026, extending children's privacy protections to teens under 17 and shifting the compliance standard from "actual knowledge" to "knowledge fairly implied by objective circumstances."</span>
+              <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Credential</span>
+              <span class="text-xs text-gray-400 leading-relaxed">Drove Instagram end-to-end privacy compliance program including COPPA/AADC; led Google's youth protections compliance (COPPA, AADC) across CEO-priority overhaul spanning 60 products.</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+              <span class="char-count text-xs text-gray-400 tabular-nums"></span>
+              <div class="flex items-center gap-2">
+                <button class="posted-btn text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-all font-medium" onclick="togglePosted(this)">Mark as posted</button>
+                <button class="copy-btn text-xs px-3 py-1.5 rounded-lg font-medium transition-all active:scale-95" onclick="handleCopyClick(this)">Copy</button>
+              </div>
             </div>
           </div>
         </div>
@@ -128,12 +145,16 @@ What questions are you wrestling with on kids safety compliance?
 
       <!-- Thursday -->
       <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden transition-opacity duration-200" data-post-date="2026-06-26">
-        <div class="px-6 py-3.5 border-b border-gray-100 flex items-center gap-2">
+        <div class="px-6 py-3.5 border-b border-gray-100 flex items-center gap-2 cursor-pointer select-none hover:bg-gray-50 transition-colors" onclick="toggleCollapse(this.closest('[data-post-date]'))">
           <span class="day-label px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Thursday &middot; Jun 26</span>
           <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">GenAI Trust</span>
+          <svg class="chevron w-4 h-4 text-gray-300 ml-auto shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06z" clip-rule="evenodd"/>
+          </svg>
         </div>
-        <div class="px-6 pt-5 pb-4">
-          <div class="post-body text-sm text-gray-800 leading-relaxed font-sans" contenteditable="true" spellcheck="true" oninput="updateCharCount(this)">Thirteen words. That's all Cornell Tech researchers needed to slip into a Reddit comment to steer ChatGPT Deep Research and Gemini toward scams and nonexistent products.
+        <div class="card-body">
+          <div class="px-6 pt-5 pb-4">
+            <div class="post-body text-sm text-gray-800 leading-relaxed font-sans" contenteditable="true" spellcheck="true" oninput="updateCharCount(this)">Thirteen words. That's all Cornell Tech researchers needed to slip into a Reddit comment to steer ChatGPT Deep Research and Gemini toward scams and nonexistent products.
 
 This is the T&amp;S problem nobody's built the playbook for yet.
 
@@ -148,19 +169,20 @@ If your product uses RAG or web search to ground AI outputs, prompt injection fr
 Who's actually solved this at scale? I'd love to hear how teams are approaching it.
 
 #GenAITrust #TrustAndSafety #AIGovernance #LLMSafety #ResponsibleAI</div>
-        </div>
-        <div class="px-6 pb-5 space-y-4">
-          <div class="grid grid-cols-[72px_1fr] gap-x-3 gap-y-1.5 pt-1">
-            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Why now</span>
-            <span class="text-xs text-gray-400 leading-relaxed">Cornell Tech researchers showed this week that 13 words embedded in a Reddit comment can steer ChatGPT Deep Research and Gemini toward scams — illustrating prompt injection as the defining T&amp;S risk in retrieval-augmented AI systems.</span>
-            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Credential</span>
-            <span class="text-xs text-gray-400 leading-relaxed">Built AI-native operating model at Meta; prototyped v1 LLM tooling that replaced manual reporting workflows for 300+ person org; led Meta Developer Platform Trust.</span>
           </div>
-          <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span class="char-count text-xs text-gray-400 tabular-nums"></span>
-            <div class="flex items-center gap-2">
-              <button class="posted-btn text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-all font-medium" onclick="togglePosted(this)">Mark as posted</button>
-              <button class="copy-btn text-xs px-3 py-1.5 rounded-lg font-medium transition-all active:scale-95" onclick="handleCopyClick(this)">Copy</button>
+          <div class="px-6 pb-5 space-y-4">
+            <div class="grid grid-cols-[72px_1fr] gap-x-3 gap-y-1.5 pt-1">
+              <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Why now</span>
+              <span class="text-xs text-gray-400 leading-relaxed">Cornell Tech researchers showed this week that 13 words embedded in a Reddit comment can steer ChatGPT Deep Research and Gemini toward scams — illustrating prompt injection as the defining T&amp;S risk in retrieval-augmented AI systems.</span>
+              <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-relaxed mt-0.5">Credential</span>
+              <span class="text-xs text-gray-400 leading-relaxed">Built AI-native operating model at Meta; prototyped v1 LLM tooling that replaced manual reporting workflows for 300+ person org; led Meta Developer Platform Trust.</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+              <span class="char-count text-xs text-gray-400 tabular-nums"></span>
+              <div class="flex items-center gap-2">
+                <button class="posted-btn text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-all font-medium" onclick="togglePosted(this)">Mark as posted</button>
+                <button class="copy-btn text-xs px-3 py-1.5 rounded-lg font-medium transition-all active:scale-95" onclick="handleCopyClick(this)">Copy</button>
+              </div>
             </div>
           </div>
         </div>
@@ -189,10 +211,10 @@ Who's actually solved this at scale? I'd love to hear how teams are approaching 
 
     function setCopyState(btn, state) {
       const s = {
-        idle:     { text: 'Copy',             bg: 'bg-blue-600 hover:bg-blue-700 text-white' },
-        copied:   { text: 'Copied ✓',         bg: 'bg-green-600 hover:bg-green-700 text-white' },
-        linkedin: { text: '→ Open LinkedIn',  bg: 'bg-green-700 hover:bg-green-800 text-white' },
-        error:    { text: 'Failed',            bg: 'bg-red-500 text-white' },
+        idle:     { text: 'Copy',            bg: 'bg-blue-600 hover:bg-blue-700 text-white' },
+        copied:   { text: 'Copied ✓',        bg: 'bg-green-600 hover:bg-green-700 text-white' },
+        linkedin: { text: '→ Open LinkedIn', bg: 'bg-green-700 hover:bg-green-800 text-white' },
+        error:    { text: 'Failed',           bg: 'bg-red-500 text-white' },
       }[state];
       btn.dataset.copyState = state;
       btn.textContent = s.text;
@@ -218,6 +240,16 @@ Who's actually solved this at scale? I'd love to hear how teams are approaching 
       } catch {
         setCopyState(btn, 'error');
         btn._t = setTimeout(() => setCopyState(btn, 'idle'), 2000);
+      }
+    }
+
+    function toggleCollapse(card) {
+      const isNowCollapsed = card.classList.toggle('card-collapsed');
+      const date = card.dataset.postDate;
+      if (isNowCollapsed) {
+        localStorage.setItem('linkedin-collapsed-' + date, '1');
+      } else {
+        localStorage.removeItem('linkedin-collapsed-' + date);
       }
     }
 
@@ -273,6 +305,9 @@ Who's actually solved this at scale? I'd love to hear how teams are approaching 
         updateCharCount(card.querySelector('.post-body'));
         if (localStorage.getItem('linkedin-posted-' + date) === '1') {
           applyPostedState(card, card.querySelector('.posted-btn'), true);
+        }
+        if (localStorage.getItem('linkedin-collapsed-' + date) === '1') {
+          card.classList.add('card-collapsed');
         }
       });
       updateProgress();
